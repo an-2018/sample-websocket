@@ -32,7 +32,7 @@ wss.on('connection', function (ws) {
     console.log('started client interval');
   
     ws.on('message', function incoming(event){
-        const timeReceived = new Date;
+        const timeReceived =Date.now;
         const data = JSON.parse(event.data);
         console.log('Timestamp at - %s - received: %s',timeReceived, data.message);
     });
@@ -45,10 +45,10 @@ wss.on('connection', function (ws) {
     });
   });
 
-server.listen(port, function () {
+/*server.listen(7777, function () {
     console.log(`Listening on http://localhost:${port}`);
   });
-
+*/
  /*
 const express = require('express')
 const app = express()

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        Websocket testing
+    </h1>
+    <p id = 'messages'></p>
+    <input id="new-message" type="text" placeholder="nova mensagem">
+    <button name="button" onclick="sendMessage()">Send</button>
+
+    <h2>Using Electron for Desktop</h2>
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chrome <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+    <script>
+        const socket = io('http://localhost:3000/')
+        const messages = document.getElementById('messages');
+
+        function addMessage(content){
+            const newDiv = document.createelement('div')
+            const newContent = document.createTextNode(content);
+            newDiv.appendChild(newContent);
+            messages.appendChild(newDiv);
+        }
+
+        function sendMessage(){
+            const newMessage = document.getElementById('new-message').value;
+            socket.emit('send message', newMessage);
+            document.getElementById('new-message').value = "";
+        }
+
+        socket.on('hello', (data) => {
+            document.getElementById('motd').textContent = data;
+        });
+
+        socket.on('messages', (data) => {
+            data.forEach(m => addMessage(m));
+        });
+
+        socket.on('new message', (data) => {
+            addMessage(data);
+        })
+    </script>
+</body>
+</html>

@@ -39,7 +39,7 @@ wss.on('connection', function (ws, req) {
         ws.send(`message received at: ${timeReceived}`);
 
         // Brodcast message to all clients
-        wss.clients.forEach( client  => (ws) {
+        wss.clients.forEach( client = (ws) =>{
             if(ws != client && client.readyState === WebSocket.OPEN){
                 client.sent(data)
             }

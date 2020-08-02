@@ -23,7 +23,6 @@ const wss = new WebSocket.Server({server});
 
 wss.on('connection', function (ws, req) {
     const id = setInterval(function () {
-        
         //
         // Ignore errors.
         //
@@ -39,7 +38,8 @@ wss.on('connection', function (ws, req) {
         ws.send(`message received at: ${timeReceived}`);
 
         // Brodcast message to all clients
-        wss.clients.forEach( client = (ws) =>{
+        wss.clients.forEach( function each(client){
+            console.log("Sending message to all clients");
             if(ws != client && client.readyState === WebSocket.OPEN){
                 client.sent(data)
             }

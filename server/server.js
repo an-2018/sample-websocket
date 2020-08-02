@@ -32,7 +32,7 @@ wss.on('connection', function (ws) {
     console.log('started client interval');
   
     ws.on('message', function incoming(event){
-        const timeReceived =Date.now;
+        const timeReceived = new Date();
         const data = JSON.parse(event.data);
         console.log('Timestamp at - %s - received: %s',timeReceived, data.message);
     });

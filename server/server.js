@@ -41,7 +41,7 @@ wss.on('connection', function (ws, req) {
         wss.clients.forEach( function each(client){
             console.log("Sending message to all clients");
             if(ws != client && client.readyState === WebSocket.OPEN){
-                client.sent(data)
+                client.send(data)
             }
         })
 

@@ -21,9 +21,10 @@ const port = process.env.PORT;
 
 const wss = new WebSocket.Server({server});
 
-wss.on('connection', function (ws) {
+wss.on('connection', function (ws, req) {
     const id = setInterval(function () {
-      ws.send(JSON.stringify(process.memoryUsage()), function () {
+        const ip = req.socket.remoteAddress;
+        console.log("Client conected with ip:%s",ip);
         //
         // Ignore errors.
         //
@@ -31,13 +32,22 @@ wss.on('connection', function (ws) {
     }, 100);
     console.log('started client interval');
   
-    ws.on('message', function incoming(event){
+    ws.on('message', function incoming(data){
+       // TODO: implement JSON parser
         const timeReceived = new Date();
-        const data = JSON.parse(event.data);
-        console.log('Timestamp at - %s - received: %s',timeReceived, data.message);
+        console.log('Message received at %s: %s',timeReceived.getTime(), data);
+        ws.send(`message received at: ${timeReceived}`);
+
+        // Brodcast message to all clients
+        wss.clients.forEach( client  => (ws) {
+            if(ws != client && client.readyState === WebSocket.OPEN){
+                client.sent(data)
+            }
+        })
+
     });
 
-    ws.send(`message received at: ${timeReceived}`)
+    
 
     ws.on('close', function () {
       console.log('stopping client interval');

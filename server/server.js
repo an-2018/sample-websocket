@@ -31,13 +31,6 @@ wss.on('connection', function (ws) {
     }, 100);
     console.log('started client interval');
   
-    ws.on('close', function () {
-      console.log('stopping client interval');
-      clearInterval(id);
-    });
-  });
-
-wss.on('connection', function connection(ws){
     ws.on('message', function incoming(event){
         const timeReceived = new Date;
         const data = JSON.parse(event.data);
@@ -45,8 +38,12 @@ wss.on('connection', function connection(ws){
     });
 
     ws.send(`message received at: ${timeReceived}`)
-});
 
+    ws.on('close', function () {
+      console.log('stopping client interval');
+      clearInterval(id);
+    });
+  });
 
 server.listen(port, function () {
     console.log(`Listening on http://localhost:${port}`);

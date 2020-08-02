@@ -8,14 +8,14 @@
 <body>
     <h1>Send Message to server</h1>
     <input id="new-message" type="text" placeholder="Insirir mensagem">
-    <button name = "button" onlcick="sendMessage" >
+    <button name = "button" onclick="sendMessage()" >
         Enviar
     </button>
 
     <p id="messages"></p>
 
     <script>
-        const mySocket = new WebSocket("ws://localhost:888");
+        const mySocket = new WebSocket("ws://34.70.172.41:3333/");
 
         function sendMessage(){
             var msg = {
@@ -26,19 +26,21 @@
             
 
             mySocket.onopen = function(envent){
-                mySocket.send(JSON.stringify(msg));
+                mySocket.send(JSON.stringify(msg)).then(console.log("message sent"));
                 document.getElementById("new-message").value = "";
+                
             }
 
 
         }
 
-        mySocket.onmessage() = function(event){
-            var f = document.getElementById("messages").contentDocument;
+        mySocket.onmessage = function(event){
+            console.log(event.data);
+           /* var f = document.getElementById("messages").contentDocument;
             var text = "";
             var msg = JSON.parse(event.data);
             var time = msg.time;
-            var timeStr = time.toLocaleTimeString();
+            var timeStr =time +"";
 
             switch(msg.type){
                 case "messages":
@@ -51,7 +53,7 @@
             if(text.length){
                 f.write(text);
                 document.getElementById("messages").contentWindow.scrollByPages(1);
-            }
+            }*/
         }
 
     

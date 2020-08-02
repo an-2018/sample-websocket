@@ -45,7 +45,7 @@ wss.on('connection', function (ws) {
     });
   });
 
-server.listen(port, function () {
+  server.listen(port, function () {
     console.log(`Listening on http://localhost:${port}`);
   });
 

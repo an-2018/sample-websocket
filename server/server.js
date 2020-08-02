@@ -28,8 +28,7 @@ wss.on('connection', function (ws, req) {
         //
     }, 100);
     const ip = req.connection.remoteAddress;
-    console.log("Client conected with ip:%s",ip);
-    console.log('started client interval');
+    console.log("started client interval with ip:%s",ip);
   
     ws.on('message', function incoming(data){
        // TODO: implement JSON parser

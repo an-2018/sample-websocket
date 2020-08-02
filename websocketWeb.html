@@ -15,7 +15,7 @@
     <p id="messages"></p>
 
     <script>
-        const mySocket = new WebSocket("ws://localhost:8081");
+        const mySocket = new WebSocket("ws://localhost:888");
 
         function sendMessage(){
             var msg = {
@@ -24,7 +24,7 @@
                 date: Date.now
             };
             
-            
+
             mySocket.onopen = function(envent){
                 mySocket.send(JSON.stringify(msg));
                 document.getElementById("new-message").value = "";

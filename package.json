@@ -10,9 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "^2.3.0"
+    "pm2": "^4.4.0",
+    "socket.io": "^2.3.0",
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "electron": "^9.1.2"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.1",
+    "utf-8-validate": "^5.0.2"
   }
 }

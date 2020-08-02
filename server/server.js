@@ -28,7 +28,6 @@ wss.on('connection', function (ws, req) {
         //
         // Ignore errors.
         //
-      });
     }, 100);
     console.log('started client interval');
   

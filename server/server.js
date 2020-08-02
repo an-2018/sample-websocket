@@ -23,14 +23,13 @@ const wss = new WebSocket.Server({server});
 
 wss.on('connection', function (ws, req) {
     const id = setInterval(function () {
-        if(!req.connection.remoteAddress === ip){
-        const ip = req.connection.remoteAddress;
-        console.log("Client conected with ip:%s",ip);
-        }
+        
         //
         // Ignore errors.
         //
     }, 100);
+    const ip = req.connection.remoteAddress;
+    console.log("Client conected with ip:%s",ip);
     console.log('started client interval');
   
     ws.on('message', function incoming(data){

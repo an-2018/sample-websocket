@@ -45,10 +45,10 @@ wss.on('connection', function (ws) {
     });
   });
 
-/*server.listen(7777, function () {
+server.listen(port, function () {
     console.log(`Listening on http://localhost:${port}`);
   });
-*/
+
  /*
 const express = require('express')
 const app = express()

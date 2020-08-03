@@ -1,0 +1,115 @@
+html, body{
+    height: 100vh;    
+    margin:0px;
+    background-image: url("./assets/back.png"); 
+    background-position-x: right; 
+    background-position-y:center ; 
+    background-repeat: no-repeat ;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    justify-content: center;
+
+    padding: 10px;
+    background-color: rgb(255,255,255,30%);
+}
+
+#header{
+    font-size: x-large;
+    color: #757575;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0 10px 0;
+}
+.input{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin: 25px 0 10px 0;
+    
+}
+
+#new-message, #user{
+    width:50%;
+    height: 150%;
+    border-radius: 5px;
+    border-width: thin;
+}
+
+.button{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin: 25px 0 25px 0;
+}
+
+#send{
+    height: 200%;
+    width:50%;
+    background-color: #e85461;
+    border-radius: 2px;
+    border-style: none;
+    color: white;
+    border-color: none;
+    color: #fff;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: thin;
+    border: none;
+}
+
+#send:hover{
+   cursor: pointer;
+   
+}
+
+.messageArea::-webkit-scrollbar {
+    display: none;
+  }
+
+.messageArea{
+    font-size: medium;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 10px 0;
+
+    max-height: 150px;
+    overflow-y: scroll;
+
+    border: solid ;
+    border-width: 0.3px;
+    border-radius: 5px;
+
+    padding: 10px;
+}
+
+.messageArea p {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* TODO: create class error */
+.error{
+    color:#e85461;
+}
+
+.connected{
+    color: #1c9b78;
+}
+/* TODO: inserir media constraint */
+/* @media width =768px{
+    bac
+} */

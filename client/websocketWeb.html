@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple websocket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+   <div class="container">
+    <h1 id="header">Send Message to server</h1>
+    
+    <div class="input">
+        <input id="user" type="text" placeholder="Insirir nome usuario">
+    </div>
+
+    <div class="input">
+        <input id="new-message" type="text" placeholder="Insirir mensagem">
+    </div>
+    
+    <div class="button">
+        <button id="send" name = "button"  >
+            Enviar
+        </button>
+    </div>
+
+    <div id="messageArea" class="messageArea"></div>
+   </div>
+
+   <audio id="audio" src="./assets/iphone_ringtone.mp3" preload="auto"></audio>
+   
+    <script>
+        const wsUri = "ws://34.70.172.41:3333/";
+        const webSocket = new WebSocket(wsUri);
+        var messageArea = document.querySelector(".messageArea"),
+         button = document.querySelector("button"),
+         textInput = document.querySelector("#new-message"),
+         userInput = document.querySelector("#user")
+         audio = document.querySelector("audio");
+        
+        button.addEventListener("click", sendMessage);
+        
+        webSocket.onopen = (event) => {
+            writeOnScreen("<span class=connected>CONNECTED</span>");
+        };
+
+        webSocket.onclose = (event) => {
+            writeToScreen("<span class=error>DISCONNECTED</span>");
+        };
+
+        webSocket.onmessage = (event) => {
+            writeOnScreen("<span> RESPONSE: " + event.data + "</span>");
+            playSound();
+            sendNotification("New Message" + event.data);
+            
+        };
+
+        webSocket.onerror = (event) =>{
+            writeOnScreen("<span class=error>ERROR</span>" + event.data);
+        }
+
+
+        function sendMessage(){
+
+            var msg = {
+                user: userInput.value,
+                type : "message",
+                text: textInput.value,
+                date: new Date()
+            };
+
+            if(webSocket.readyState === WebSocket.OPEN){
+                webSocket.send(JSON.stringify(msg));
+                writeOnScreen("SENT:" + JSON.stringify(msg));
+                textInput.value = "";
+                textInput.focus;
+                
+            }            
+        }
+
+        function writeOnScreen(message){
+            messageArea.insertAdjacentHTML("afterbegin", "<p>" + message + "</p>");
+
+        }
+
+        function playSound (){
+            audio.play();
+        }
+
+        function sendNotification(message) {
+            // Let's check if the browser supports notifications
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification");
+            }
+
+            // Let's check whether notification permissions have already been granted
+            else if (Notification.permission === "granted") {
+                // If it's okay let's create a notification
+                var notification = new Notification(message);
+            }
+
+            // Otherwise, we need to ask the user for permission
+            else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then(function (permission) {
+                // If the user accepts, let's create a notification
+                if (permission === "granted") {
+                    var notification = new Notification(message);
+                }
+                });
+            }
+
+           
+            }
+
+    
+    </script>
+</body>
+</html>

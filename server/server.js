@@ -34,7 +34,7 @@ wss.on('connection', function (ws, req) {
        // TODO: implement JSON parser
         const timeReceived = new Date();
         console.log('Message received at %s: %s',timeReceived.getTime(), data);
-        ws.send(`message received at: ${timeReceived}`);
+        //ws.send(`message received at: ${timeReceived}`);
 
         // Brodcast message to all clients
         wss.clients.forEach( function each(client){

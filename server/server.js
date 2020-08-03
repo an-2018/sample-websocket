@@ -55,18 +55,9 @@ wss.on('connection', function (ws, req) {
   });
 
   server.listen(port, function () {
-    console.log(`Listening on http://localhost:${port}`);
+    require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+      console.log(`Listening on http://${add}:${port}`);
+    })
   });
 
- /*
-const express = require('express')
-const app = express()
-const port = 4001
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.listen(0, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})*/
+  

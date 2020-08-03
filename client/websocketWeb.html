@@ -9,7 +9,7 @@
 </head>
 <body>
    <div class="container">
-    <h1 id="header">Send Message to server</h1>
+    <h1 id="header">Send Message</h1>
     
     <div class="input">
         <input id="user" type="text" placeholder="Insirir nome usuario">
@@ -80,8 +80,8 @@
         }
 
         function writeOnScreen(message){
-            messageArea.insertAdjacentHTML("afterbegin", "<p>" + message + "</p>");
-
+            messageArea.insertAdjacentHTML( "afterbegin","<li>"+ message +"</li>");
+            messageArea.scrollTo(0,0);
         }
 
         function playSound (){

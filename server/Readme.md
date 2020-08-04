@@ -1,4 +1,33 @@
-# Implementation of WS server
+# Websocket server
+
+### Client handshake request
+
+The client will send a pretty standard HTTP request with headers that looks like this (the HTTP version must be 1.1 or greater, and the method must be GET):
+
+```
+GET /chat HTTP/1.1
+Host: example.com:8000
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+Sec-WebSocket-Version: 13
+```
+
+If any header is not understood or has an incorrect value, the server should send a 400 ("Bad Request")} response and immediately close the socket.
+
+### Server handshake response
+
+When the server receives the handshake request, it should send back a special response that indicates that the protocol will be changing from HTTP to WebSocket. That header looks something like the following (remember each header line ends with \r\n and put an extra \r\n after the last one to indicate the end of the header):
+
+```
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+```
+
+## Implementation of WS server
+
 [ws: a Node.js WebSocket library](https://github.com/websockets/ws)
 
 ### Instalation
@@ -9,8 +38,11 @@ npm install --save-optional utf-8-validate
 ```
 
 - npm install --save-optional bufferutil: Allows to efficiently perform operations such as masking and unmasking the data payload of the WebSocket frames.
+
 - npm install --save-optional utf-8-validate: Allows to efficiently check if a message contains valid UTF-8 as required by the spec.
+
 ### Sample Server
+
 ```js
 const WebSocket = require('ws');
 
@@ -24,7 +56,9 @@ wss.on('connection', function connection(ws){
     ws.send('Message received')
 })
 ```
+
 ### External HTTP/S server
+
 ```js
 const fs = require('fs');
 const https = require('https');
@@ -66,7 +100,9 @@ wss.on('connection', function connection(ws) {
 ```
 
 ### How to get the IP address of the client?
+
 The remote IP address can be obtained from the raw socket.
+
 ```js
 const WebSocket = require('ws');
 
@@ -78,6 +114,7 @@ wss.on('connection', function connection(ws, req) {
 ```
 
 When the server runs behind a proxy like NGINX, the de-facto standard is to use the X-Forwarded-For header.
+
 ```js
 wss.on('connection', function connection(ws, req) {
   const ip = req.headers['x-forwarded-for'].split(/\s*,\s*/)[0];
@@ -85,9 +122,11 @@ wss.on('connection', function connection(ws, req) {
 ```
 
 ### How to detect and close broken connections?
+
 Sometimes the link between the server and the client can be interrupted in a way that keeps both the server and the client unaware of the broken state of the connection (e.g. when pulling the cord).
 
 In these cases ping messages can be used as a means to verify that the remote endpoint is still responsive.
+
 ```js
 const WebSocket = require('ws');
 
@@ -119,6 +158,7 @@ wss.on('close', function close() {
 ```
 
 ### A simple ping client implementation
+
 ```js
 const WebSocket = require('ws');
 
@@ -142,3 +182,4 @@ client.on('close', function clear() {
   clearTimeout(this.pingTimeout);
 });
 ```
+

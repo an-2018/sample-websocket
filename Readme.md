@@ -1,14 +1,10 @@
-# Electron DesktopApp with js
-### Sample HTML
-```html
-<h2>Using Electron for Desktop</h2>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-```
 
 # Websocket Web Client Application
 [MDN web Docs WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications)
+
+![Sample websocker Implementation](./assets/simple_web_chat.png)
+
+>Clients server chat example, one client sends a message to the server and the server broadcast this message to all connected clients at moment, just like a real time group chat.
 
 ## Crating a websocket Object
 ```js
@@ -246,4 +242,15 @@ you might keep a table of usernames or ID numbers along with the corresponding W
         textarea.focus();
     }
 </script>
+```
+
+# Electron DesktopApp with js
+[ELectron -Build cross-platform desktop apps with JavaScript, HTML, and CSS](https://www.electronjs.org/)
+
+### Sample HTML
+```html
+<h2>Using Electron for Desktop</h2>
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chrome <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
 ```
